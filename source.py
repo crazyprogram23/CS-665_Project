@@ -43,6 +43,13 @@ def delete_student():
     conn.commit()
     messagebox.showinfo("Deleted", f"Student ID {Student_id} deleted")
 
+# Function to search student by name/email
+def search_student():
+    keyword = entry_search.get()
+    cursor.execute("SELECT * FROM Students WHERE name LIKE %s OR email LIKE %s", (f"%{keyword}%", f"%{keyword}%"))
+    records = cursor.fetchall()
+    display_result(records, ["ID", "Name", "Email", "Phone"])  
+
 # Function to show student-course join results
 def show_enrollments():
     cursor.execute('''
@@ -95,6 +102,7 @@ tk.Label(frame_input, text="Phone:").grid(row=3, column=0)
 entry_phone = tk.Entry(frame_input)
 entry_phone.grid(row=3, column=1)
 
+#Student buttons
 frame_buttons = tk.Frame(root)
 frame_buttons.pack(pady=10)
 
@@ -103,6 +111,17 @@ tk.Button(frame_buttons, text="View Students", command=view_students).grid(row=0
 tk.Button(frame_buttons, text="Delete Student", command=delete_student).grid(row=0, column=2, padx=5)
 tk.Button(frame_buttons, text="Show Enrollments", command=show_enrollments).grid(row=0, column=3, padx=5)
 tk.Button(frame_buttons, text="Show Unenrolled Students", command=show_unenrolled_students).grid(row=0, column=4, padx=5)
+
+frame_search = tk.Frame(root)
+frame_search.pack(pady=10)
+
+tk.Label(frame_search, text="Search Student:").pack(side=tk.LEFT)
+entry_search = tk.Entry(frame_search)
+entry_search.pack(side=tk.LEFT)
+tk.Button(frame_search, text="Search", command=search_student).pack(side=tk.LEFT, padx=5)
+
+frame_course = tk.Frame(root)
+frame_course.pack(pady=10)
 
 frame_result = tk.Frame(root)
 frame_result.pack(fill=tk.BOTH, expand=True, pady=20)
