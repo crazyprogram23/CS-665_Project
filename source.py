@@ -52,13 +52,23 @@ def search_student():
 
 # Function to update student info
 def update_student():
-    id = entry_id.get()
+    student_id = entry_id.get()
     name = entry_name.get()
     email = entry_email.get()
     phone = entry_phone.get()
-    cursor.execute("UPDATE Students SET name=%s, email=%s, phone=%s, WHERE student_id = %s", (name, email, phone, id))
+    
+    if not student_id:
+        messagebox.showwarning("Input Error", "Please enter the Student ID to update.")
+        return
+
+    update_query = '''
+        UPDATE Students 
+        SET name = %s, email = %s, phone = %s
+        WHERE student_id = %s
+    '''
+    cursor.execute(update_query, (name, email, phone, student_id))
     conn.commit()
-    messagebox.showinfo("Updated", f"Student ID {id} updated")
+    messagebox.showinfo("Success", f"Student ID {student_id} updated successfully")
 
 
 # Function to show student-course join results
