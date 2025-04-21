@@ -149,7 +149,7 @@ frame_buttons.pack(pady=10)
 tk.Button(frame_buttons, text="Add Student", command=add_student).grid(row=0, column=0, padx=5)
 tk.Button(frame_buttons, text="Update Student", command=update_student).grid(row=0, column=1, padx=5)
 tk.Button(frame_buttons, text="Delete Student", command=delete_student).grid(row=0, column=2, padx=5)
-tk.Button(frame_buttons, text="View Students", command=view_students).grid(row=0, column=3, padx=6)
+tk.Button(frame_buttons, text="View Students", command=view_students).grid(row=0, column=3, padx=5)
 
 tk.Button(frame_buttons, text="Show Enrollments", command=show_enrollments).grid(row=0, column=4, padx=5)
 tk.Button(frame_buttons, text="Show Unenrolled Students", command=show_unenrolled_students).grid(row=0, column=5, padx=5)
@@ -181,9 +181,9 @@ tk.Label(frame_course, text="Credits:").grid(row=3, column=0)
 entry_credits = tk.Entry(frame_course)
 entry_credits.grid(row=3, column=1)
 
-tk.Button(frame_course, text="Add Course", command=add_course).grid(row=4, column=0, columnspan=2, pady=5)
-tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=5, column=0, columnspan=2, pady=5)
-
+tk.Button(frame_course, text="Add Course", command=add_course).grid(row=4, column=0, pady=5)
+tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=4, column=1, pady=5)
+tk.Button(frame_course, text="Delete Courses", command=delete_courses).grid(row=4, column=2, pady=5)
 
 frame_result = tk.Frame(root)
 frame_result.pack(fill=tk.BOTH, expand=True, pady=20)
