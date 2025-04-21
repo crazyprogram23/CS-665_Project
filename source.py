@@ -120,6 +120,20 @@ def add_course():
     conn.commit()
     messagebox.showinfo("Course Added", "Course added successfully")
 
+def delete_course():
+    course_id = entry_course_id.get()
+    if not course_id:
+        messagebox.showwarning("Input Error", "Please enter a Course ID to delete.")
+        return
+
+    try:
+        cursor.execute("DELETE FROM Courses WHERE course_id = %s", (course_id,))
+        conn.commit()
+        messagebox.showinfo("Deleted", f"Course ID {course_id} deleted successfully")
+    except mysql.connector.Error as err:
+        messagebox.showerror("Error", f"Cannot delete course. Reason: {err}")
+
+
 
 # UI Elements
 frame_input = tk.Frame(root)
@@ -183,7 +197,7 @@ entry_credits.grid(row=3, column=1)
 
 tk.Button(frame_course, text="Add Course", command=add_course).grid(row=4, column=0, pady=5)
 tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=4, column=1, pady=5)
-tk.Button(frame_course, text="Delete Courses", command=delete_courses).grid(row=4, column=2, pady=5)
+tk.Button(frame_course, text="Delete Course", command=delete_course).grid(row=4, column=2, pady=5)
 
 frame_result = tk.Frame(root)
 frame_result.pack(fill=tk.BOTH, expand=True, pady=20)
