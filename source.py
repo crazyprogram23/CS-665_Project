@@ -103,6 +103,24 @@ def display_result(rows, columns):
         tree.insert('', tk.END, values=row)
     tree.pack(fill=tk.BOTH, expand=True)
 
+# Function to view all courses
+def view_courses():
+    cursor.execute("SELECT * FROM Courses")
+    records = cursor.fetchall()
+    display_result(records, ["Course ID", "Course Name", "Instructor", "Credits"])
+
+# Function to add a course
+def add_course():
+    course_id = entry_course_id.get()
+    name = entry_course_name.get()
+    instructor = entry_instructor.get()
+    credits = entry_credits.get()
+    cursor.execute("INSERT INTO Courses (Course_id, Name, Instructor_id, Credits) VALUES (%s, %s, %s, %s)",
+                   (course_id, name, instructor, credits))
+    conn.commit()
+    messagebox.showinfo("Course Added", "Course added successfully")
+
+
 # UI Elements
 frame_input = tk.Frame(root)
 frame_input.pack(pady=10)
@@ -147,20 +165,24 @@ tk.Button(frame_search, text="Search", command=search_student).pack(side=tk.LEFT
 frame_course = tk.Frame(root)
 frame_course.pack(pady=10)
 
-tk.Label(frame_course, text="Course Name:").grid(row=0, column=0)
+tk.Label(frame_course, text="Course ID:").grid(row=0, column=0)
+entry_course_id = tk.Entry(frame_course)
+entry_course_id.grid(row=0, column=1)
+
+tk.Label(frame_course, text="Course Name:").grid(row=1, column=0)
 entry_course_name = tk.Entry(frame_course)
-entry_course_name.grid(row=0, column=1)
+entry_course_name.grid(row=1, column=1)
 
-tk.Label(frame_course, text="Instructor:").grid(row=1, column=0)
+tk.Label(frame_course, text="Instructor:").grid(row=2, column=0)
 entry_instructor = tk.Entry(frame_course)
-entry_instructor.grid(row=1, column=1)
+entry_instructor.grid(row=2, column=1)
 
-tk.Label(frame_course, text="Credits:").grid(row=2, column=0)
+tk.Label(frame_course, text="Credits:").grid(row=3, column=0)
 entry_credits = tk.Entry(frame_course)
-entry_credits.grid(row=2, column=1)
+entry_credits.grid(row=3, column=1)
 
-tk.Button(frame_course, text="Add Course", command=add_course).grid(row=3, column=0, columnspan=2, pady=5)
-tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=4, column=0, columnspan=2, pady=5)
+tk.Button(frame_course, text="Add Course", command=add_course).grid(row=4, column=0, columnspan=2, pady=5)
+tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=5, column=0, columnspan=2, pady=5)
 
 
 frame_result = tk.Frame(root)
