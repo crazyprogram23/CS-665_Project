@@ -5,3 +5,4 @@ Student course Registration application
 https://github.com/crazyprogram23/CS-665_Project.git
 
 # Video link
+https://youtu.be/WRB04BVX7P8
