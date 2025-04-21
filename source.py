@@ -50,6 +50,17 @@ def search_student():
     records = cursor.fetchall()
     display_result(records, ["ID", "Name", "Email", "Phone"])  
 
+# Function to update student info
+def update_student():
+    id = entry_id.get()
+    name = entry_name.get()
+    email = entry_email.get()
+    phone = entry_phone.get()
+    cursor.execute("UPDATE Students SET name=%s, email=%s, phone=%s, WHERE student_id = %s", (name, email, phone, id))
+    conn.commit()
+    messagebox.showinfo("Updated", f"Student ID {id} updated")
+
+
 # Function to show student-course join results
 def show_enrollments():
     cursor.execute('''
@@ -106,11 +117,14 @@ entry_phone.grid(row=3, column=1)
 frame_buttons = tk.Frame(root)
 frame_buttons.pack(pady=10)
 
-tk.Button(frame_buttons, text="Add Student", command=add_student ).grid(row=0, column=0, padx=5)
-tk.Button(frame_buttons, text="View Students", command=view_students).grid(row=0, column=1, padx=5)
+
+tk.Button(frame_buttons, text="Add Student", command=add_student).grid(row=0, column=0, padx=5)
+tk.Button(frame_buttons, text="Update Student", command=update_student).grid(row=0, column=1, padx=5)
 tk.Button(frame_buttons, text="Delete Student", command=delete_student).grid(row=0, column=2, padx=5)
-tk.Button(frame_buttons, text="Show Enrollments", command=show_enrollments).grid(row=0, column=3, padx=5)
-tk.Button(frame_buttons, text="Show Unenrolled Students", command=show_unenrolled_students).grid(row=0, column=4, padx=5)
+tk.Button(frame_buttons, text="View Students", command=view_students).grid(row=0, column=3, padx=6)
+
+tk.Button(frame_buttons, text="Show Enrollments", command=show_enrollments).grid(row=0, column=4, padx=5)
+tk.Button(frame_buttons, text="Show Unenrolled Students", command=show_unenrolled_students).grid(row=0, column=5, padx=5)
 
 frame_search = tk.Frame(root)
 frame_search.pack(pady=10)
@@ -119,9 +133,6 @@ tk.Label(frame_search, text="Search Student:").pack(side=tk.LEFT)
 entry_search = tk.Entry(frame_search)
 entry_search.pack(side=tk.LEFT)
 tk.Button(frame_search, text="Search", command=search_student).pack(side=tk.LEFT, padx=5)
-
-frame_course = tk.Frame(root)
-frame_course.pack(pady=10)
 
 frame_result = tk.Frame(root)
 frame_result.pack(fill=tk.BOTH, expand=True, pady=20)
