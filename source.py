@@ -144,6 +144,25 @@ entry_search = tk.Entry(frame_search)
 entry_search.pack(side=tk.LEFT)
 tk.Button(frame_search, text="Search", command=search_student).pack(side=tk.LEFT, padx=5)
 
+frame_course = tk.Frame(root)
+frame_course.pack(pady=10)
+
+tk.Label(frame_course, text="Course Name:").grid(row=0, column=0)
+entry_course_name = tk.Entry(frame_course)
+entry_course_name.grid(row=0, column=1)
+
+tk.Label(frame_course, text="Instructor:").grid(row=1, column=0)
+entry_instructor = tk.Entry(frame_course)
+entry_instructor.grid(row=1, column=1)
+
+tk.Label(frame_course, text="Credits:").grid(row=2, column=0)
+entry_credits = tk.Entry(frame_course)
+entry_credits.grid(row=2, column=1)
+
+tk.Button(frame_course, text="Add Course", command=add_course).grid(row=3, column=0, columnspan=2, pady=5)
+tk.Button(frame_course, text="View Courses", command=view_courses).grid(row=4, column=0, columnspan=2, pady=5)
+
+
 frame_result = tk.Frame(root)
 frame_result.pack(fill=tk.BOTH, expand=True, pady=20)
 
